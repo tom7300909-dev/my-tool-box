@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Tool Box</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #071426;
+  color: white;
+}
+header {
+  background: #102b4e;
+  text-align: center;
+  padding: 28px 12px;
+}
+h1 { color: #22d3ee; }
+main { max-width: 1000px; margin: auto; padding: 18px; }
+input, textarea {
+  width: 100%;
+  padding: 13px;
+  border-radius: 9px;
+  border: 1px solid #22d3ee;
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+.tools {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+  gap: 12px;
+}
+.tool {
+  background: #122640;
+  padding: 18px 8px;
+  border: 1px solid #244566;
+  border-radius: 12px;
+  text-align: center;
+}
+.tool span { font-size: 27px; }
+.tool h3 { font-size: 14px; }
+.panel {
+  background: #122640;
+  padding: 16px;
+  margin-top: 22px;
+  border-radius: 12px;
+}
+button {
+  background: #0891b2;
+  color: white;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 7px;
+  margin: 4px;
+}
+footer { text-align: center; padding: 25px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🧰 My Tool Box</h1>
+  <p>Free online tools in one place</p>
+</header>
+
+<main>
+<input id="search" placeholder="🔍 Search tools...">
+<div class="tools" id="tools">
+<div class="tool"><span>📄</span><h3>PDF to Word</h3></div>
+<div class="tool"><span>🔗</span><h3>Merge PDF</h3></div>
+<div class="tool"><span>✂️</span><h3>Split PDF</h3></div>
+<div class="tool"><span>🗜️</span><h3>Compress PDF</h3></div>
+<div class="tool"><span>🖼️</span><h3>Images to PDF</h3></div>
+<div class="tool"><span>📑</span><h3>Word to PDF</h3></div>
+<div class="tool"><span>📷</span><h3>Image Compressor</h3></div>
+<div class="tool"><span>📐</span><h3>Image Resizer</h3></div>
+<div class="tool"><span>✂️</span><h3>Image Cropper</h3></div>
+<div class="tool"><span>🎨</span><h3>PNG to JPG</h3></div>
+<div class="tool"><span>🖼️</span><h3>JPG to PNG</h3></div>
+<div class="tool"><span>💻</span><h3>Image to Base64</h3></div>
+<div class="tool"><span>🔢</span><h3>Word Counter</h3></div>
+<div class="tool"><span>🔠</span><h3>Case Converter</h3></div>
+<div class="tool"><span>📝</span><h3>Remove Extra Spaces</h3></div>
+<div class="tool"><span>🔄</span><h3>Text Reverser</h3></div>
+<div class="tool"><span>📋</span><h3>Duplicate Line Remover</h3></div>
+<div class="tool"><span>🔤</span><h3>Character Counter</h3></div>
+<div class="tool"><span>📱</span><h3>QR Code Generator</h3></div>
+<div class="tool"><span>🔐</span><h3>Password Generator</h3></div>
+<div class="tool"><span>🎂</span><h3>Age Calculator</h3></div>
+<div class="tool"><span>💯</span><h3>Percentage Calculator</h3></div>
+<div class="tool"><span>📏</span><h3>Unit Converter</h3></div>
+<div class="tool"><span>🧮</span><h3>BMI Calculator</h3></div>
+</div>
+
+<div class="panel">
+<h2>Word Counter</h2>
+<textarea id="words" rows="4" placeholder="Type or paste your text here..."></textarea>
+<p id="result">Words: 0 | Characters: 0</p>
+</div>
+
+<div class="panel">
+<h2>Case Converter</h2>
+<textarea id="caseText" rows="3" placeholder="Enter text to convert..."></textarea>
+<button onclick="convertCase('upper')">UPPERCASE</button>
+<button onclick="convertCase('lower')">lowercase</button>
+<button onclick="convertCase('title')">Title Case</button>
+</div>
+
+<div class="panel">
+<h2>Percentage Calculator</h2>
+<input id="percent" type="number" placeholder="Percentage (%)">
+<input id="total" type="number" placeholder="Total number">
+<button onclick="calculate()">Calculate</button>
+<p id="answer"></p>
+</div>
+</main>
+
+<footer>© 2026 My Tool Box</footer>
+
+<script>
+document.getElementById('search').addEventListener('input', function() {
+  const q = this.value.toLowerCase();
+  document.querySelectorAll('.tool').forEach(card => {
+    card.style.display = card.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+});
+
+document.getElementById('words').addEventListener('input', function() {
+  const t = this.value.trim();
+  const count = t ? t.split(/\s+/).length : 0;
+  document.getElementById('result').textContent =
+    'Words: ' + count + ' | Characters: ' + this.value.length;
+});
+
+function convertCase(type) {
+  const el = document.getElementById('caseText');
+  if (type === 'upper') el.value = el.value.toUpperCase();
+  if (type === 'lower') el.value = el.value.toLowerCase();
+  if (type === 'title') el.value = el.value.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+}
+
+function calculate() {
+  const p = Number(document.getElementById('percent').value);
+  const t = Number(document.getElementById('total').value);
+  document.getElementById('answer').textContent =
+    document.getElementById('percent').value === '' ||
+    document.getElementById('total').value === ''
+    ? 'Please enter both numbers.'
+    : p + '% of ' + t + ' = ' + (p * t / 100);
+}
+</script>
+</body>
+</html>
